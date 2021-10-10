@@ -67,5 +67,31 @@ COPY . .
 И теперь необходимо написать команду запуска проекта, когда будет запущен docker контейнер:
 
 ```dockerfile
-CMD ["uvicorn", "app.webapp:app", "--host", "localhost", "--port", "8001"]
+CMD ["uvicorn", "webapp:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+Далее необходимо открыть терминал так, чтобы текущее положение было:
+
+```text
+path_to_project/hello_docker_1_level/web$
+```
+
+И в консоли написать две команды: 
+```commandline
+docker build -t webappimg .
+docker container run -i -t -p 8005:8000 --name webappcont --rm  webappimg 
+```
+
+и после успешного запуска в терминале должно быть что-то такое:
+
+```text
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+И перейдите по ссылке:
+```text
+http://localhost:8005/
 ```
